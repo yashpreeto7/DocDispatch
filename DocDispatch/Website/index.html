@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full w-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocDispatch - Doctor Dispatch</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        'primary-dark': '#4f46e5',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen h-screen w-full h-full flex flex-col overflow-x-hidden">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="flex justify-between items-center h-16 w-full px-8">
+            <!-- Logo/Brand -->
+            <div class="flex items-center">
+                <h1 class="text-2xl font-bold text-primary">DocDispatch</h1>
+            </div>
+            
+            <!-- Navigation Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">Home</a>
+                <a href="#" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">About us</a>
+                <a href="#" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">Contact us</a>
+                
+                <!-- Logout Button -->
+                <button class="bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-full font-medium transition-colors duration-200 shadow-sm hover:shadow-md">
+                    Logout
+                </button>
+            </div>
+            
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-700 hover:text-primary">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#" class="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors duration-200">Home</a>
+                <a href="#" class="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors duration-200">About us</a>
+                <a href="#" class="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors duration-200">Contact us</a>
+                <button class="w-full text-left px-3 py-2 bg-primary text-white rounded-md">Logout</button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="flex-1 py-8 h-full overflow-y-auto px-8">
+        <!-- Welcome Section -->
+        <div class="text-center px-4 mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                Welcome to DocDispatch
+            </h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                Your efficient doctor dispatch solution.
+            </p>
+            
+            <!-- Optional: Add some action buttons -->
+            <div class="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 shadow-sm hover:shadow-md">
+                    Get Started
+                </button>
+                <button class="border border-gray-300 hover:border-primary text-gray-700 hover:text-primary px-6 py-2 rounded-lg font-medium transition-colors duration-200">
+                    Learn More
+                </button>
+            </div>
+        </div>
+
+        <!-- High Alert Areas Section -->
+        <div class="w-full flex-1">
+            <div class="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
+                <h2 class="text-2xl font-bold text-red-800 mb-4 text-center">High Alert Areas</h2>
+                
+                <!-- Alert Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                    <!-- Village Card 1 -->
+                    <div class="bg-white border border-red-300 rounded-lg p-4 shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-semibold text-gray-800">Village Name</h3>
+                            <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">High Risk</span>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <span class="text-sm text-gray-600">No of Patients:</span>
+                                <span class="font-medium text-red-600">25</span>
+                            </div>
+                            <div class="text-sm">
+                                <span class="text-gray-600">Majority Symptoms:</span>
+                                <div class="mt-1 text-red-700">Fever, Cough, Fatigue</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Village Card 2 -->
+                    <div class="bg-white border border-red-300 rounded-lg p-4 shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-semibold text-gray-800">Riverside District</h3>
+                            <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">High Risk</span>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <span class="text-sm text-gray-600">No of Patients:</span>
+                                <span class="font-medium text-red-600">18</span>
+                            </div>
+                            <div class="text-sm">
+                                <span class="text-gray-600">Majority Symptoms:</span>
+                                <div class="mt-1 text-red-700">Respiratory Issues, Headache</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Village Card 3 -->
+                    <div class="bg-white border border-red-300 rounded-lg p-4 shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-semibold text-gray-800">Central Township</h3>
+                            <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">High Risk</span>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <span class="text-sm text-gray-600">No of Patients:</span>
+                                <span class="font-medium text-red-600">32</span>
+                            </div>
+                            <div class="text-sm">
+                                <span class="text-gray-600">Majority Symptoms:</span>
+                                <div class="mt-1 text-red-700">Nausea, Dizziness, Fatigue</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Patients List Button -->
+                <div class="text-center">
+                    <button id="patients-list-btn" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 shadow-sm hover:shadow-md mr-4">
+                        View All Patients
+                    </button>
+                    <button id="village-wise-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 shadow-sm hover:shadow-md">
+                        Village-wise Patients
+                    </button>
+                </div>
+            </div>
+
+            <!-- Patients List Modal/Section (Initially Hidden) -->
+            <div id="patients-list" class="hidden bg-white border border-gray-300 rounded-lg p-6 shadow-lg mt-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-gray-800">All Patients List</h3>
+                    <button id="close-patients-list" class="text-gray-500 hover:text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse border border-gray-300">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Patient ID</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Name</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Village</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Symptoms</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="hover:bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2">P001</td>
+                                <td class="border border-gray-300 px-4 py-2">John Doe</td>
+                                <td class="border border-gray-300 px-4 py-2">Village Name</td>
+                                <td class="border border-gray-300 px-4 py-2">Fever, Cough</td>
+                                <td class="border border-gray-300 px-4 py-2"><span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">Critical</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2">P002</td>
+                                <td class="border border-gray-300 px-4 py-2">Jane Smith</td>
+                                <td class="border border-gray-300 px-4 py-2">Riverside District</td>
+                                <td class="border border-gray-300 px-4 py-2">Respiratory Issues</td>
+                                <td class="border border-gray-300 px-4 py-2"><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs">Moderate</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2">P003</td>
+                                <td class="border border-gray-300 px-4 py-2">Mike Johnson</td>
+                                <td class="border border-gray-300 px-4 py-2">Central Township</td>
+                                <td class="border border-gray-300 px-4 py-2">Nausea, Dizziness</td>
+                                <td class="border border-gray-300 px-4 py-2"><span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">Critical</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2">P004</td>
+                                <td class="border border-gray-300 px-4 py-2">Sarah Wilson</td>
+                                <td class="border border-gray-300 px-4 py-2">Village Name</td>
+                                <td class="border border-gray-300 px-4 py-2">Fatigue, Headache</td>
+                                <td class="border border-gray-300 px-4 py-2"><span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">Stable</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2">P005</td>
+                                <td class="border border-gray-300 px-4 py-2">David Brown</td>
+                                <td class="border border-gray-300 px-4 py-2">Riverside District</td>
+                                <td class="border border-gray-300 px-4 py-2">Chest Pain</td>
+                                <td class="border border-gray-300 px-4 py-2"><span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">Critical</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Village-wise Patients Section (Initially Hidden) -->
+            <div id="village-wise-list" class="hidden bg-white border border-gray-300 rounded-lg p-6 shadow-lg mt-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-gray-800">Village-wise Patients</h3>
+                    <button id="close-village-wise-list" class="text-gray-500 hover:text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Village Filter -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Select Village:</label>
+                    <select id="village-filter" class="w-full md:w-64 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                        <option value="all">All Villages</option>
+                        <option value="Village Name">Village Name</option>
+                        <option value="Riverside District">Riverside District</option>
+                        <option value="Central Township">Central Township</option>
+                    </select>
+                </div>
+                
+                <!-- Filtered Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse border border-gray-300">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Patient ID</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Name</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Village</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Symptoms</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="filtered-patients">
+                            <!-- Filtered content will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Floating Action Button -->
+    <div class="fixed bottom-6 right-6">
+        <button class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-200">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+        </button>
+    </div>
+    
+    <script>
+        // Sample patient data for filtering
+        const patientsData = [
+            { id: 'P001', name: 'John Doe', village: 'Village Name', symptoms: 'Fever, Cough', status: 'Critical' },
+            { id: 'P002', name: 'Jane Smith', village: 'Riverside District', symptoms: 'Respiratory Issues', status: 'Moderate' },
+            { id: 'P003', name: 'Mike Johnson', village: 'Central Township', symptoms: 'Nausea, Dizziness', status: 'Critical' },
+            { id: 'P004', name: 'Sarah Wilson', village: 'Village Name', symptoms: 'Fatigue, Headache', status: 'Stable' },
+            { id: 'P005', name: 'David Brown', village: 'Riverside District', symptoms: 'Chest Pain', status: 'Critical' },
+            { id: 'P006', name: 'Lisa Davis', village: 'Central Township', symptoms: 'Fever, Nausea', status: 'Moderate' },
+            { id: 'P007', name: 'Tom Anderson', village: 'Village Name', symptoms: 'Cough, Fatigue', status: 'Stable' },
+            { id: 'P008', name: 'Amy Garcia', village: 'Riverside District', symptoms: 'Headache, Dizziness', status: 'Moderate' }
+        ];
+
+        // Function to render filtered patients
+        function renderFilteredPatients(filteredData) {
+            const tbody = document.getElementById('filtered-patients');
+            tbody.innerHTML = '';
+            
+            filteredData.forEach(patient => {
+                const statusClass = patient.status === 'Critical' ? 'bg-red-100 text-red-800' : 
+                                  patient.status === 'Moderate' ? 'bg-yellow-100 text-yellow-800' : 
+                                  'bg-green-100 text-green-800';
+                
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-gray-50';
+                row.innerHTML = `
+                    <td class="border border-gray-300 px-4 py-2">${patient.id}</td>
+                    <td class="border border-gray-300 px-4 py-2">${patient.name}</td>
+                    <td class="border border-gray-300 px-4 py-2">${patient.village}</td>
+                    <td class="border border-gray-300 px-4 py-2">${patient.symptoms}</td>
+                    <td class="border border-gray-300 px-4 py-2">
+                        <span class="${statusClass} px-2 py-1 rounded-full text-xs">${patient.status}</span>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Village filter functionality
+        const villageFilter = document.getElementById('village-filter');
+        villageFilter.addEventListener('change', (e) => {
+            const selectedVillage = e.target.value;
+            const filteredData = selectedVillage === 'all' ? 
+                patientsData : 
+                patientsData.filter(patient => patient.village === selectedVillage);
+            renderFilteredPatients(filteredData);
+        });
+
+        // Initialize with all patients
+        renderFilteredPatients(patientsData);
+
+        // Patients list toggle functionality
+        const patientsListBtn = document.getElementById('patients-list-btn');
+        const patientsList = document.getElementById('patients-list');
+        const closePatientsListBtn = document.getElementById('close-patients-list');
+        
+        const villageWiseBtn = document.getElementById('village-wise-btn');
+        const villageWiseList = document.getElementById('village-wise-list');
+        const closeVillageWiseListBtn = document.getElementById('close-village-wise-list');
+        
+        patientsListBtn.addEventListener('click', () => {
+            const isHidden = patientsList.classList.contains('hidden');
+            patientsList.classList.toggle('hidden');
+            villageWiseList.classList.add('hidden'); // Hide village-wise list
+            
+            // Change button text based on state
+            if (isHidden) {
+                patientsListBtn.textContent = 'Hide Patients List';
+                patientsList.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                patientsListBtn.textContent = 'View All Patients';
+            }
+        });
+        
+        villageWiseBtn.addEventListener('click', () => {
+            const isHidden = villageWiseList.classList.contains('hidden');
+            villageWiseList.classList.toggle('hidden');
+            patientsList.classList.add('hidden'); // Hide all patients list
+            
+            // Change button text based on state
+            if (isHidden) {
+                villageWiseBtn.textContent = 'Hide Village-wise Patients';
+                villageWiseList.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                villageWiseBtn.textContent = 'Village-wise Patients';
+            }
+        });
+        
+        closePatientsListBtn.addEventListener('click', () => {
+            patientsList.classList.add('hidden');
+            patientsListBtn.textContent = 'View All Patients';
+        });
+        
+        closeVillageWiseListBtn.addEventListener('click', () => {
+            villageWiseList.classList.add('hidden');
+            villageWiseBtn.textContent = 'Village-wise Patients';
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Floating action button interaction
+        const fab = document.querySelector('.fixed button');
+        fab.addEventListener('click', () => {
+            // Add a ripple effect
+            fab.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                fab.style.transform = 'scale(1)';
+            }, 150);
+        });
+    </script>
+</body>
+</html>
