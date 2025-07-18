@@ -31,6 +31,7 @@ public class OtpActivity extends AppCompatActivity {
     Button sendOtpBtn, verifyBtn;
     FirebaseAuth mAuth;
     String verificationId;
+    TextView errorTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class OtpActivity extends AppCompatActivity {
         otpInput = findViewById(R.id.otpInput);
         sendOtpBtn = findViewById(R.id.sendOtpBtn);
         verifyBtn = findViewById(R.id.verifyBtn);
+        errorTxt = findViewById(R.id.errorTxt);
 
         mAuth = FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() != null) {
@@ -101,6 +103,7 @@ public class OtpActivity extends AppCompatActivity {
                 @Override
                 public void onVerificationFailed(FirebaseException e) {
                     Toast.makeText(OtpActivity.this, "Verification failed", Toast.LENGTH_LONG).show();
+                    errorTxt.setText(e.getMessage());
                 }
 
                 @Override
@@ -121,7 +124,7 @@ public class OtpActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(this, "Logged in!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(OtpActivity.this, MainActivity.class));
+                        startActivity(new Intent(OtpActivity.this, NameActivity.class));
                         finish();
                     } else {
                         Toast.makeText(this, "Invalid OTP", Toast.LENGTH_SHORT).show();

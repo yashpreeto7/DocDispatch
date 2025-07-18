@@ -42,4 +42,14 @@
         android:enabled="false"
         android:layout_marginTop="16dp"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/errorTxt"
+        android:textColor="@color/appName"
+        android:text="All good"
+        android:textSize="20sp"
+        android:textIsSelectable="true"
+        android:layout_marginTop="30dp"/>
+
 </LinearLayout>

@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">DocDispatch</string>
+    <string-array name="symptom_list">
+        <item>Headache</item>
+        <item>Fever</item>
+        <item>Cough</item>
+        <item>Fatigue</item>
+        <item>Sore throat</item>
+        <item>Nausea</item>
+        <item>Dizziness</item>
+    </string-array>
 </resources>
