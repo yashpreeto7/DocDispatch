@@ -1,4 +1,4 @@
-package com.priyanshu.docdispatch;
+package online.ppriyanshu26.docdispatch;
 
 import org.junit.Test;
 

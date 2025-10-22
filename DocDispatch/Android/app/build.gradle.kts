@@ -1,13 +1,14 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
 
 android {
-    namespace = "com.priyanshu.docdispatch"
+    namespace = "online.ppriyanshu26.docdispatch"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.priyanshu.docdispatch"
+        applicationId = "online.ppriyanshu26.docdispatch"
         minSdk = 26
         targetSdk = 36
         versionCode = 1
@@ -32,7 +33,8 @@ android {
 }
 
 dependencies {
-
+    implementation(platform("com.google.firebase:firebase-bom:34.4.0"))
+    implementation("com.google.firebase:firebase-auth")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
