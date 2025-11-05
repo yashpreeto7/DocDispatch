@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -55,6 +56,14 @@ public class AiInputBottomSheet extends BottomSheetDialogFragment {
         AutoCompleteTextView actvSymptom1 = view.findViewById(R.id.actvSymptom1);
         AutoCompleteTextView actvSymptom2 = view.findViewById(R.id.actvSymptom2);
         Button btnSubmit = view.findViewById(R.id.btnSubmit);
+        ImageButton btnInfo = view.findViewById(R.id.btnInfo);
+
+        btnInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext().getApplicationContext(), "Long press to view Privacy warning", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(requireContext(),
                 android.R.layout.simple_dropdown_item_1line, GENDER_OPTIONS);
