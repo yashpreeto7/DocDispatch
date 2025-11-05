@@ -91,6 +91,7 @@
                 android:id="@+id/actvSymptom1"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                android:paddingStart="12dp"
                 android:completionThreshold="1"
                 android:inputType="textCapWords" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -106,6 +107,7 @@
                 android:id="@+id/actvSymptom2"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                android:paddingStart="12dp"
                 android:completionThreshold="1"
                 android:inputType="textCapWords" />
         </com.google.android.material.textfield.TextInputLayout>
