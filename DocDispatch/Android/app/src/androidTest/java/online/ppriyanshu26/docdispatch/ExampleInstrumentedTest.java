@@ -1,4 +1,4 @@
-package com.priyanshu.docdispatch;
+package online.ppriyanshu26.docdispatch;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.priyanshu.docdispatch", appContext.getPackageName());
+        assertEquals("online.ppriyanshu26.docdispatch", appContext.getPackageName());
     }
 }

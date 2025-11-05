@@ -1,4 +1,4 @@
-package com.priyanshu.docdispatch;
+package online.ppriyanshu26.docdispatch;
 
 import android.os.Bundle;
 
@@ -20,6 +20,5 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        System.out.println("Hello World");
     }
 }

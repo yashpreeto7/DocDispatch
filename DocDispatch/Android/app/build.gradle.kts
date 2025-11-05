@@ -3,13 +3,13 @@ plugins {
 }
 
 android {
-    namespace = "com.priyanshu.docdispatch"
-    compileSdk = 35
+    namespace = "online.ppriyanshu26.docdispatch"
+    compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.priyanshu.docdispatch"
+        applicationId = "online.ppriyanshu26.docdispatch"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
