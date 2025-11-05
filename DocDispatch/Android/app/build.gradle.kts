@@ -11,7 +11,6 @@ android {
     buildFeatures {
         buildConfig = true
     }
-
     defaultConfig {
         applicationId = "online.ppriyanshu26.docdispatch"
         minSdk = 26
