@@ -103,10 +103,9 @@ public class OtpActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         showError("✅ Login successful!");
-                        // Go to main screen
                         Intent intent = new Intent(OtpActivity.this, MainActivity.class);
                         startActivity(intent);
-                        finish(); // optional: prevent back to OTP screen
+                        finish();
                     } else {
                         showError("Login failed: " + (task.getException() != null ? task.getException().getMessage() : "Unknown error"));
                     }
@@ -115,6 +114,5 @@ public class OtpActivity extends AppCompatActivity {
 
     private void showError(String message) {
         tvError.setText(message);
-        // Optional: Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

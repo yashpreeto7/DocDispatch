@@ -11,15 +11,32 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="AI Health Assistant"
-            android:textSize="18sp"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp">
 
-        <!-- Age -->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="AI Health Assistant"
+                android:textSize="18sp"
+                android:gravity="center" />
+
+            <ImageButton
+                android:id="@+id/btnInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Info"
+                android:src="@android:drawable/ic_menu_info_details"
+                android:tooltipText="The terms and conditions are to be followed by the API usage via Google AI Studio" />
+
+        </LinearLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,7 +50,6 @@
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Gender -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,7 +65,6 @@
                 android:editable="false" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Medical History -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,7 +80,6 @@
                 android:gravity="top" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Symptom 1 -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -81,7 +95,6 @@
                 android:inputType="textCapWords" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Symptom 2 -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -97,7 +110,6 @@
                 android:inputType="textCapWords" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Submit Button -->
         <Button
             android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
@@ -105,7 +117,6 @@
             android:text="Get AI Advice"
             android:layout_marginTop="16dp" />
 
-        <!-- AI Response Box -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

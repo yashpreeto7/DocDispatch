@@ -71,7 +71,7 @@ public class AiInputBottomSheet extends BottomSheetDialogFragment {
             if (hasReceivedResponse[0]) return;
 
             etAiResponse.setText("Processing...\nPlease wait.");
-            etAiResponse.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.darker_gray));
+            etAiResponse.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white));
 
             String age = etAge.getText().toString().trim();
             String gender = actvGender.getText().toString().trim();
@@ -111,7 +111,7 @@ public class AiInputBottomSheet extends BottomSheetDialogFragment {
     private void sendToGemini(String age, String gender, String medHistory, List<String> symptoms,
                               TextInputEditText etAiResponse, Button btnSubmit, boolean[] hasReceivedResponse) {
 
-        // 🔑 Get API key from BuildConfig (secure)
+        // API key from BuildConfig
         String API_KEY = BuildConfig.GEMINI_API_KEY;
         if (API_KEY == null || API_KEY.isEmpty()) {
             if (isAdded()) {
@@ -124,7 +124,7 @@ public class AiInputBottomSheet extends BottomSheetDialogFragment {
             return;
         }
 
-        String prompt = "You are a medical AI assistant. Analyze the following patient details and provide a concise, professional insight. Do not diagnose definitively.\n\n" +
+        String prompt = "You are a medical AI assistant. Analyze the following patient details and provide a concise explanation in a simple language and in a professional manner in less than 50 words. Do not diagnose definitively.\n\n" +
                 "Patient Details:\n" +
                 "- Age: " + age + "\n" +
                 "- Gender: " + gender + "\n" +
@@ -186,8 +186,10 @@ public class AiInputBottomSheet extends BottomSheetDialogFragment {
                                 if (partsArray.length() == 0) throw new Exception("Empty response");
 
                                 String aiText = partsArray.getJSONObject(0).getString("text");
+                                aiText += "\nThis is an AI response and it can be incorrect, it is advisable to consult a doctor if the condition persists.";
+                                btnSubmit.setText("Processed");
                                 etAiResponse.setText(aiText.trim());
-                                etAiResponse.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black));
+                                etAiResponse.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white));
 
                             } catch (Exception ex) {
                                 etAiResponse.setText("❌ Error: " + ex.getMessage());
