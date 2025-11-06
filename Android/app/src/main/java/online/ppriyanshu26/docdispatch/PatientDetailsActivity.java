@@ -55,22 +55,41 @@ public class PatientDetailsActivity extends AppCompatActivity {
         String treatment = etTreatment.getText().toString().trim();
         String disease = etDisease.getText().toString().trim();
 
+        boolean hasErrors = false;
+
         if (name.isEmpty()) {
             etName.setError("Name is required");
-            return;
+            if (!hasErrors) {
+                etName.requestFocus();
+                hasErrors = true;
+            }
         }
         if (ageStr.isEmpty()) {
             etAge.setError("Age is required");
-            return;
+            if (!hasErrors) {
+                etAge.requestFocus();
+                hasErrors = true;
+            }
         }
         if (temperatureStr.isEmpty()) {
             etTemperature.setError("Temperature is required");
-            return;
+            if (!hasErrors) {
+                etTemperature.requestFocus();
+                hasErrors = true;
+            }
         }
         if (daysStr.isEmpty()) {
-            etDays.setError("Number of days is required");
+            etDays.setError("Days are required");
+            if (!hasErrors) {
+                etDays.requestFocus();
+                hasErrors = true;
+            }
+        }
+        if (hasErrors) {
+            Toast.makeText(this, "Please fill in all required fields", Toast.LENGTH_SHORT).show();
             return;
         }
+
         int selectedGenderId = rgGender.getCheckedRadioButtonId();
         String gender = "";
         if (selectedGenderId == R.id.rbMale) {
@@ -85,6 +104,31 @@ public class PatientDetailsActivity extends AppCompatActivity {
         }
         boolean isContagious = cbContagious.isChecked();
         String contagiousStatus = isContagious ? "Yes" : "No";
+
+        int temp = Integer.parseInt(temperatureStr);
+        int age =  Integer.parseInt(ageStr);
+        int days =  Integer.parseInt(daysStr);
+
+        if (temp < 28 || temp > 41) {
+            Toast.makeText(this, "Temperature range from 28 to 41", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (age < 0 || age > 100) {
+            Toast.makeText(this, "Age range from 0 to 100", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (age <= 5) {
+            Toast.makeText(this, "Young children need immediate care", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (age >= 80) {
+            Toast.makeText(this, "Elderly need immediate care", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (days > 7) {
+            Toast.makeText(this, "More than a week needs immediate care", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Toast.makeText(this, "Patient details submitted successfully!", Toast.LENGTH_LONG).show();
 
