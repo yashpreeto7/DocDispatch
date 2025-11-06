@@ -12,6 +12,14 @@ import com.google.android.material.textfield.TextInputEditText;
 import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
 
+import org.json.JSONObject;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class PatientDetailsActivity extends AppCompatActivity {
 
     private TextInputEditText etName, etAge, etTemperature, etDays, etOthers, etTreatment, etDisease;
@@ -44,6 +52,52 @@ public class PatientDetailsActivity extends AppCompatActivity {
         rgGender = findViewById(R.id.rgGender);
         cbContagious = findViewById(R.id.cbContagious);
         btnSubmit = findViewById(R.id.btnSubmit);
+    }
+
+    private void sendToServer(String name, String age, String gender, String temperature, String days, String contagious) {
+        runOnUiThread(() -> Toast.makeText(PatientDetailsActivity.this, "Submitting...", Toast.LENGTH_SHORT).show());
+
+        new Thread(() -> {
+            try {
+                String url = "http://192.168.1.14:5050/";
+
+                OkHttpClient client = new OkHttpClient();
+
+                JSONObject json = new JSONObject();
+                json.put("name", name);
+                json.put("age", age);
+                json.put("gender", gender);
+                json.put("temperature", temperature);
+                json.put("days", days);
+                json.put("contagious", contagious);
+
+                RequestBody body = RequestBody.create(
+                        json.toString(),
+                        MediaType.get("application/json; charset=utf-8")
+                );
+
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(body)
+                        .build();
+
+                try (Response response = client.newCall(request).execute()) {
+                    runOnUiThread(() -> {
+                        if (response.isSuccessful()) {
+                            Toast.makeText(PatientDetailsActivity.this, "✅ Submitted successfully!", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(PatientDetailsActivity.this, "❌ Server error: " + response.code(), Toast.LENGTH_LONG).show();
+                        }
+                        finish();
+                    });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                runOnUiThread(() ->
+                        Toast.makeText(PatientDetailsActivity.this, "⚠️ Failed to connect to server", Toast.LENGTH_LONG).show()
+                );
+            }
+        }).start();
     }
 
     private void submitPatientDetails() {
@@ -91,7 +145,7 @@ public class PatientDetailsActivity extends AppCompatActivity {
         }
 
         int selectedGenderId = rgGender.getCheckedRadioButtonId();
-        String gender = "";
+        final String gender;
         if (selectedGenderId == R.id.rbMale) {
             gender = "Male";
         } else if (selectedGenderId == R.id.rbFemale) {
@@ -143,8 +197,7 @@ public class PatientDetailsActivity extends AppCompatActivity {
                 .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(PatientDetailsActivity.this, "Patient details submitted successfully!", Toast.LENGTH_LONG).show();
-                        finish();
+                        sendToServer(name, ageStr, gender, temperatureStr, daysStr, contagiousStatus);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
