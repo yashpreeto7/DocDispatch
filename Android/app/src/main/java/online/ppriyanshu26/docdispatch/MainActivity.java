@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.cardRegister).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Register clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, PatientDetailsActivity.class);
+                startActivity(intent);
             }
         });
 
