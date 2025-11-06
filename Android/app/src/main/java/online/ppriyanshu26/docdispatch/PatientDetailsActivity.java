@@ -118,19 +118,17 @@ public class PatientDetailsActivity extends AppCompatActivity {
             return;
         }
         if (age <= 5) {
-            Toast.makeText(this, "Young children need immediate care", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Children (<6) need immediate care", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (age >= 80) {
-            Toast.makeText(this, "Elderly need immediate care", Toast.LENGTH_SHORT).show();
+        if (age >= 70) {
+            Toast.makeText(this, "Elderly (>69) need immediate care", Toast.LENGTH_SHORT).show();
             return;
         }
         if (days > 7) {
             Toast.makeText(this, "More than a week needs immediate care", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        Toast.makeText(this, "Patient details submitted successfully!", Toast.LENGTH_LONG).show();
 
         String summary = "Name: " + name + "\n" +
                 "Age: " + ageStr + "\n" +
