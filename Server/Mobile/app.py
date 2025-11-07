@@ -1,9 +1,8 @@
 from flask import Flask, request, jsonify
 from datetime import datetime
+from regdb import PatientDB
 
 app = Flask(__name__)
-
-FILE = "file.txt"
 
 @app.route('/', methods=['POST'])
 def receive_patient_data():
@@ -21,21 +20,10 @@ def receive_patient_data():
 
         if not all([name, age, gender, temperature, days, contagious]):
             return jsonify({"status": "error", "message": "Missing required fields"}), 400
-
-        summary = (
-            f"Name: {name}\n"
-            f"Age: {age}\n"
-            f"Gender: {gender}\n"
-            f"Temperature: {temperature}°C\n"
-            f"Days: {days}\n"
-            f"Contagious: {contagious}"
-        )
-
-        with open(FILE, "a", encoding="utf-8") as f:
-            f.write("=" * 50 + "\n")
-            f.write(f"Received at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-            f.write(summary + "\n")
-            f.write("=" * 50 + "\n\n")
+        
+        db = PatientDB()
+        db.insert_patient(data)
+        db.close()
 
         return jsonify({"status": "success", "message": "Patient data saved"}), 200
 
