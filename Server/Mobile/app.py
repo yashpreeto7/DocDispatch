@@ -11,19 +11,6 @@ def receive_patient_data():
         if not data:
             return jsonify({"status": "error", "message": "No JSON received"}), 400
         
-        print("📥 Received data:", data)
-
-        number = data.get('phone', '').strip()
-        name = data.get('name', '').strip()
-        age = data.get('age', '').strip()
-        gender = data.get('gender', '').strip()
-        temperature = data.get('temperature', '').strip()
-        days = data.get('days', '').strip()
-        contagious = data.get('contagious', '').strip()
-
-        if not all([number, name, age, gender, temperature, days, contagious]):
-            return jsonify({"status": "error", "message": "Missing required fields"}), 400
-        
         db = PatientDB()
         db.insert_patient(data)
         db.close()

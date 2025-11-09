@@ -35,13 +35,15 @@ class PatientDB:
         self.cursor.execute("""
         CREATE TABLE IF NOT EXISTS `queries` (
             qid INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-            contact VARCHAR(50) NOT NULL,
+            contact VARCHAR(15) NOT NULL,
             name VARCHAR(255) NOT NULL,
-            age VARCHAR(20),
-            gender VARCHAR(50),
-            temperature VARCHAR(50),
-            days VARCHAR(50),
-            contagious VARCHAR(50),
+            age VARCHAR(3),
+            gender VARCHAR(6),
+            temperature VARCHAR(2),
+            days VARCHAR(1),
+            contagious VARCHAR(3),
+            treatment VARCHAR(100),
+            disease VARCHAR(20),
             attended boolean DEFAULT FALSE,
             received_at DATETIME DEFAULT CURRENT_TIMESTAMP
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci

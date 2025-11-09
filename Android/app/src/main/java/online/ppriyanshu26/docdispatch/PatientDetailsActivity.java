@@ -25,7 +25,7 @@ public class PatientDetailsActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "MyAppPrefs";
     private static final String KEY_PHONE = "phone_number";
 
-    private TextInputEditText etName, etAge, etTemperature, etDays, etOthers, etTreatment, etDisease;
+    private TextInputEditText etName, etAge, etTemperature, etDays, etTreatment, etDisease;
     private RadioGroup rgGender;
     private CheckBox cbContagious;
     private Button btnSubmit;
@@ -55,7 +55,6 @@ public class PatientDetailsActivity extends AppCompatActivity {
         etAge = findViewById(R.id.etAge);
         etTemperature = findViewById(R.id.etTemperature);
         etDays = findViewById(R.id.etDays);
-        etOthers = findViewById(R.id.etOthers);
         etTreatment = findViewById(R.id.etTreatment);
         etDisease = findViewById(R.id.etDisease);
         rgGender = findViewById(R.id.rgGender);
@@ -63,7 +62,7 @@ public class PatientDetailsActivity extends AppCompatActivity {
         btnSubmit = findViewById(R.id.btnSubmit);
     }
 
-    private void sendToServer(String number, String name, String age, String gender, String temperature, String days, String contagious) {
+    private void sendToServer(String number, String name, String age, String gender, String temperature, String days, String contagious, String treatment, String disease) {
         runOnUiThread(() -> Toast.makeText(PatientDetailsActivity.this, "Submitting...", Toast.LENGTH_SHORT).show());
 
         new Thread(() -> {
@@ -80,6 +79,8 @@ public class PatientDetailsActivity extends AppCompatActivity {
                 json.put("temperature", temperature);
                 json.put("days", days);
                 json.put("contagious", contagious);
+                json.put("treatment", treatment);
+                json.put("disease", disease);
 
                 RequestBody body = RequestBody.create(
                         json.toString(),
@@ -115,6 +116,8 @@ public class PatientDetailsActivity extends AppCompatActivity {
         String ageStr = etAge.getText().toString().trim();
         String temperatureStr = etTemperature.getText().toString().trim();
         String daysStr = etDays.getText().toString().trim();
+        String treatment = etTreatment.getText().toString().trim();
+        String disease = etDisease.getText().toString().trim();
 
         boolean hasErrors = false;
 
@@ -150,6 +153,14 @@ public class PatientDetailsActivity extends AppCompatActivity {
             Toast.makeText(this, "Please fill in all required fields", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (treatment.length() > 100) {
+            etTreatment.setError("Min 100 characters");
+            return;
+        }
+        if (disease.length() > 20) {
+            etDisease.setError("Min 20 characters");
+            return;
+        }
 
         int selectedGenderId = rgGender.getCheckedRadioButtonId();
         final String gender;
@@ -176,11 +187,6 @@ public class PatientDetailsActivity extends AppCompatActivity {
             Toast.makeText(this, "Please enter valid numbers for age, temperature, and days", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        if (temp < 28 || temp > 41) {
-            Toast.makeText(this, "Temperature must be between 28°C and 41°C", Toast.LENGTH_SHORT).show();
-            return;
-        }
         if (age < 0 || age > 100) {
             Toast.makeText(this, "Age must be between 0 and 100", Toast.LENGTH_SHORT).show();
             return;
@@ -193,8 +199,12 @@ public class PatientDetailsActivity extends AppCompatActivity {
             Toast.makeText(this, "Elderly (>69) need immediate care", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (temp < 28 || temp > 41) {
+            Toast.makeText(this, "Temperature must be between 28°C and 41°C", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (days > 7) {
-            Toast.makeText(this, "Symptoms >7 days need immediate care", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Symptoms (>7) days need immediate care", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -209,7 +219,7 @@ public class PatientDetailsActivity extends AppCompatActivity {
                 .setTitle("Confirm Submission")
                 .setMessage(summary)
                 .setPositiveButton("Submit", (dialog, which) -> {
-                    sendToServer(savedPhoneNumber, name, String.valueOf(age), gender, String.valueOf(temp), String.valueOf(days), contagiousStatus);
+                    sendToServer(savedPhoneNumber, name, String.valueOf(age), gender, String.valueOf(temp), String.valueOf(days), contagiousStatus, treatment, disease);
                 })
                 .setNegativeButton("Cancel", null)
                 .show();

@@ -117,18 +117,6 @@
             android:layout_marginBottom="16dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etOthers"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Are there others with similar symptoms?" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp">
-
-            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etTreatment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
