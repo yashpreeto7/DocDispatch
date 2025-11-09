@@ -1,5 +1,7 @@
 package online.ppriyanshu26.docdispatch;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,9 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
-
 import org.json.JSONObject;
-
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -22,23 +22,32 @@ import okhttp3.Response;
 
 public class PatientDetailsActivity extends AppCompatActivity {
 
+    private static final String PREFS_NAME = "MyAppPrefs";
+    private static final String KEY_PHONE = "phone_number";
+
     private TextInputEditText etName, etAge, etTemperature, etDays, etOthers, etTreatment, etDisease;
     private RadioGroup rgGender;
     private CheckBox cbContagious;
     private Button btnSubmit;
+    private String savedPhoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_details);
+
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        savedPhoneNumber = prefs.getString(KEY_PHONE, null);
+
+        if (savedPhoneNumber == null) {
+            Toast.makeText(this, "Phone number not found. Redirecting to login...", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
+
         initViews();
 
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                submitPatientDetails();
-            }
-        });
+        btnSubmit.setOnClickListener(v -> submitPatientDetails());
     }
 
     private void initViews() {
@@ -54,16 +63,17 @@ public class PatientDetailsActivity extends AppCompatActivity {
         btnSubmit = findViewById(R.id.btnSubmit);
     }
 
-    private void sendToServer(String name, String age, String gender, String temperature, String days, String contagious) {
+    private void sendToServer(String number, String name, String age, String gender, String temperature, String days, String contagious) {
         runOnUiThread(() -> Toast.makeText(PatientDetailsActivity.this, "Submitting...", Toast.LENGTH_SHORT).show());
 
         new Thread(() -> {
             try {
-                String url = "http://192.168.1.14:5050/";
+                String url = "http://192.168.1.13:5050/";
 
                 OkHttpClient client = new OkHttpClient();
 
                 JSONObject json = new JSONObject();
+                json.put("phone", number);
                 json.put("name", name);
                 json.put("age", age);
                 json.put("gender", gender);
@@ -105,9 +115,6 @@ public class PatientDetailsActivity extends AppCompatActivity {
         String ageStr = etAge.getText().toString().trim();
         String temperatureStr = etTemperature.getText().toString().trim();
         String daysStr = etDays.getText().toString().trim();
-        String others = etOthers.getText().toString().trim();
-        String treatment = etTreatment.getText().toString().trim();
-        String disease = etDisease.getText().toString().trim();
 
         boolean hasErrors = false;
 
@@ -156,19 +163,26 @@ public class PatientDetailsActivity extends AppCompatActivity {
             Toast.makeText(this, "Please select gender", Toast.LENGTH_SHORT).show();
             return;
         }
+
         boolean isContagious = cbContagious.isChecked();
         String contagiousStatus = isContagious ? "Yes" : "No";
 
-        int temp = Integer.parseInt(temperatureStr);
-        int age =  Integer.parseInt(ageStr);
-        int days =  Integer.parseInt(daysStr);
+        int temp, age, days;
+        try {
+            temp = Integer.parseInt(temperatureStr);
+            age = Integer.parseInt(ageStr);
+            days = Integer.parseInt(daysStr);
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Please enter valid numbers for age, temperature, and days", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if (temp < 28 || temp > 41) {
-            Toast.makeText(this, "Temperature range from 28 to 41", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Temperature must be between 28°C and 41°C", Toast.LENGTH_SHORT).show();
             return;
         }
         if (age < 0 || age > 100) {
-            Toast.makeText(this, "Age range from 0 to 100", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Age must be between 0 and 100", Toast.LENGTH_SHORT).show();
             return;
         }
         if (age <= 5) {
@@ -180,32 +194,24 @@ public class PatientDetailsActivity extends AppCompatActivity {
             return;
         }
         if (days > 7) {
-            Toast.makeText(this, "More than a week needs immediate care", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Symptoms >7 days need immediate care", Toast.LENGTH_SHORT).show();
             return;
         }
 
         String summary = "Name: " + name + "\n" +
-                "Age: " + ageStr + "\n" +
+                "Age: " + age + "\n" +
                 "Gender: " + gender + "\n" +
-                "Temperature: " + temperatureStr + "°C\n" +
-                "Days: " + daysStr + "\n" +
+                "Temperature: " + temp + "°C\n" +
+                "Days: " + days + "\n" +
                 "Contagious: " + contagiousStatus;
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Do you want to submit?")
+        new AlertDialog.Builder(this)
+                .setTitle("Confirm Submission")
                 .setMessage(summary)
-                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        sendToServer(name, ageStr, gender, temperatureStr, daysStr, contagiousStatus);
-                    }
+                .setPositiveButton("Submit", (dialog, which) -> {
+                    sendToServer(savedPhoneNumber, name, String.valueOf(age), gender, String.valueOf(temp), String.valueOf(days), contagiousStatus);
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
+                .setNegativeButton("Cancel", null)
                 .show();
     }
 }

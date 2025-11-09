@@ -33,14 +33,16 @@ class PatientDB:
         self.cursor = self.conn.cursor()
 
         self.cursor.execute("""
-        CREATE TABLE IF NOT EXISTS `patients` (
-            id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        CREATE TABLE IF NOT EXISTS `queries` (
+            qid INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            contact VARCHAR(50) NOT NULL,
             name VARCHAR(255) NOT NULL,
             age VARCHAR(20),
             gender VARCHAR(50),
             temperature VARCHAR(50),
             days VARCHAR(50),
             contagious VARCHAR(50),
+            attended boolean DEFAULT FALSE,
             received_at DATETIME DEFAULT CURRENT_TIMESTAMP
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
         """)
@@ -48,10 +50,10 @@ class PatientDB:
 
     def insert_patient(self, data):
         self.cursor.execute("""
-        INSERT INTO patients (name, age, gender, temperature, days, contagious)
-        VALUES (%s, %s, %s, %s, %s, %s)
+        INSERT INTO queries (contact, name, age, gender, temperature, days, contagious)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
         """, (
-            data.get('name'), data.get('age'), data.get('gender'),
+            data.get('phone'), data.get('name'), data.get('age'), data.get('gender'),
             data.get('temperature'), data.get('days'), data.get('contagious')
         ))
         self.conn.commit()
