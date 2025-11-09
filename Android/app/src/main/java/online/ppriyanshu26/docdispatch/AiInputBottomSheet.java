@@ -58,6 +58,10 @@ public class AiInputBottomSheet extends BottomSheetDialogFragment {
         Button btnSubmit = view.findViewById(R.id.btnSubmit);
         ImageButton btnInfo = view.findViewById(R.id.btnInfo);
 
+        etAiResponse.setKeyListener(null);       
+        etAiResponse.setTextIsSelectable(true);
+        etAiResponse.setCursorVisible(false);
+
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

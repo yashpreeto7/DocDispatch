@@ -40,7 +40,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Age (e.g., 25)"
+            android:hint="Age"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -134,12 +134,14 @@
                 android:maxLines="10"
                 android:gravity="top"
                 android:scrollbars="vertical"
-                android:inputType="textMultiLine|textCapSentences"
-                android:editable="false"
                 android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:cursorVisible="false"
                 android:textIsSelectable="true"
-                android:background="?android:attr/selectableItemBackground" />
+                android:background="@android:color/transparent"
+                android:padding="8dp" />
         </com.google.android.material.textfield.TextInputLayout>
+
 
     </LinearLayout>
 </ScrollView>
