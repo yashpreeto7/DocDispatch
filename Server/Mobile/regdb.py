@@ -1,6 +1,8 @@
 import os
 import mysql.connector
 from datetime import datetime
+from dotenv import load_dotenv
+load_dotenv()
 
 class PatientDB:
     def __init__(self):
@@ -52,11 +54,11 @@ class PatientDB:
 
     def insert_patient(self, data):
         self.cursor.execute("""
-        INSERT INTO queries (contact, name, age, gender, temperature, days, contagious)
-        VALUES (%s, %s, %s, %s, %s, %s, %s)
+        INSERT INTO queries (contact, name, age, gender, temperature, days, contagious, treatment, disease)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
         """, (
-            data.get('phone'), data.get('name'), data.get('age'), data.get('gender'),
-            data.get('temperature'), data.get('days'), data.get('contagious')
+            data.get('phone'), data.get('name'), data.get('age'), data.get('gender'), data.get('temperature'), 
+            data.get('days'), data.get('contagious'), data.get('treatment'), data.get('disease')
         ))
         self.conn.commit()
 
