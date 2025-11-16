@@ -67,7 +67,7 @@ public class PatientDetailsActivity extends AppCompatActivity {
 
         new Thread(() -> {
             try {
-                String url = "http://192.168.1.13:5050/";
+                String url = "http://192.168.1.14:5050/register";
 
                 OkHttpClient client = new OkHttpClient();
 
