@@ -40,12 +40,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.cardQueries).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Queries clicked", Toast.LENGTH_SHORT).show();
-            }
+        findViewById(R.id.cardQueries).setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, QueriesActivity.class);
+            startActivity(intent);
         });
+
 
         findViewById(R.id.cardAiBot).setOnClickListener(new View.OnClickListener() {
             @Override

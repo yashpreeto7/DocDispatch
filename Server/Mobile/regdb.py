@@ -52,13 +52,52 @@ class PatientDB:
         """)
         self.conn.commit()
 
+        self.cursor.execute("""
+        CREATE TABLE IF NOT EXISTS `attended` (
+            qid INT PRIMARY KEY,
+            contact VARCHAR(15),
+            doctor VARCHAR(255),
+            treatment VARCHAR(255),
+            remarks VARCHAR(255),
+            attended_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+        """)
+        self.conn.commit()
+
+    def fetch_queries(self, contact):
+        self.cursor.execute("""
+            SELECT qid, attended, name
+            FROM queries
+            WHERE contact = %s
+            ORDER BY received_at DESC
+        """, (contact,))
+
+        rows = self.cursor.fetchall()
+
+        result = []
+        for row in rows:
+            result.append({
+                "qid": row[0],
+                "attended": bool(row[1]),
+                "name": row[2]
+            })
+
+        return result
+
     def insert_patient(self, data):
+        treat = data.get('treatment')
+        disea = data.get('disease')
+        if treat == "":
+            treat = 'None'
+        if disea == "":
+            disea = 'None'
+            
         self.cursor.execute("""
         INSERT INTO queries (contact, name, age, gender, temperature, days, contagious, treatment, disease)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
         """, (
             data.get('phone'), data.get('name'), data.get('age'), data.get('gender'), data.get('temperature'), 
-            data.get('days'), data.get('contagious'), data.get('treatment'), data.get('disease')
+            data.get('days'), data.get('contagious'), treat, disea
         ))
         self.conn.commit()
 
