@@ -107,8 +107,11 @@ public class QueriesActivity extends AppCompatActivity {
                 boolean attended = obj.getBoolean("attended");
                 String name = obj.getString("name");
 
-                queryList.add(new QueryModel(qid, attended, name));
+                String doctor = obj.isNull("doctor") ? "-" : obj.getString("doctor");
+                String treatment = obj.isNull("treatment") ? "-" : obj.getString("treatment");
+                String remarks = obj.isNull("remarks") ? "-" : obj.getString("remarks");
 
+                queryList.add(new QueryModel(qid, attended, name, doctor, treatment, remarks));
             }
 
             runOnUiThread(() -> adapter.notifyDataSetChanged());

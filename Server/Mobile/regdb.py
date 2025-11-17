@@ -66,10 +66,12 @@ class PatientDB:
 
     def fetch_queries(self, contact):
         self.cursor.execute("""
-            SELECT qid, attended, name
-            FROM queries
-            WHERE contact = %s
-            ORDER BY received_at DESC
+            SELECT q.qid, q.attended, q.name,
+                a.doctor, a.treatment, a.remarks
+            FROM queries q
+            LEFT JOIN attended a ON q.qid = a.qid
+            WHERE q.contact = %s
+            ORDER BY q.received_at DESC
         """, (contact,))
 
         rows = self.cursor.fetchall()
@@ -79,7 +81,10 @@ class PatientDB:
             result.append({
                 "qid": row[0],
                 "attended": bool(row[1]),
-                "name": row[2]
+                "name": row[2],
+                "doctor": row[3],
+                "treatment": row[4],
+                "remarks": row[5]
             })
 
         return result
