@@ -67,7 +67,7 @@ public class PatientDetailsActivity extends AppCompatActivity {
 
         new Thread(() -> {
             try {
-                String url = "http://192.168.1.14:5050/register";
+                String url = BuildConfig.REGISTER_URL;
 
                 OkHttpClient client = new OkHttpClient();
 

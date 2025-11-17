@@ -26,7 +26,7 @@ public class QueriesActivity extends AppCompatActivity {
     QueriesAdapter adapter;
     ArrayList<QueryModel> queryList = new ArrayList<>();
 
-    String BASE_URL = "http://192.168.1.14:5050/queries";
+    String BASE_URL = BuildConfig.QUERIES_URL;
     String PREFS_NAME = "MyAppPrefs";
     String KEY_PHONE = "phone_number";
 
