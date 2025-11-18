@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,12 +44,6 @@ public class QueriesAdapter extends RecyclerView.Adapter<QueriesAdapter.ViewHold
         }
 
         holder.btnDetails.setOnClickListener(v -> {
-            if (!q.attended) {
-                Toast.makeText(v.getContext(), "Not attended yet", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            // Inflate dialog layout
             View dialogView = LayoutInflater.from(v.getContext())
                     .inflate(R.layout.dialog_details, null);
 

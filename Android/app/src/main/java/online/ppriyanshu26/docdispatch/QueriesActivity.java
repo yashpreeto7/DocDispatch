@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -49,12 +48,6 @@ public class QueriesActivity extends AppCompatActivity {
             try {
                 SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
                 String savedPhone = prefs.getString(KEY_PHONE, null);
-
-                if (savedPhone == null) {
-                    runOnUiThread(() ->
-                            Toast.makeText(QueriesActivity.this, "Phone not found in prefs", Toast.LENGTH_SHORT).show());
-                    return;
-                }
 
                 URL url = new URL(BASE_URL);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
