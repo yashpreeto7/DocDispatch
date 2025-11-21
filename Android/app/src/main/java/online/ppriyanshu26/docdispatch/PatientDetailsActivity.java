@@ -186,10 +186,7 @@ public class PatientDetailsActivity extends AppCompatActivity {
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Please enter valid numbers for age, temperature, and days", Toast.LENGTH_SHORT).show();
             return;
-        }
-        if (age < 0 || age > 100) {
-            Toast.makeText(this, "Age must be between 0 and 100", Toast.LENGTH_SHORT).show();
-            return;
+
         }
         if (age <= 5) {
             Toast.makeText(this, "Children (<6) need immediate care", Toast.LENGTH_SHORT).show();
