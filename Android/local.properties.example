@@ -8,6 +8,5 @@
 # For customization when using a Version Control System, please read the
 # header note.
 sdk.dir=C\:\\Users\\Priyanshu\\AppData\\Local\\Android\\Sdk
-GEMINI_API_KEY=your-api-key
 REGISTER_URL=your-api-url
 QUERIES_URL=your-api-url

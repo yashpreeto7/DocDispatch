@@ -23,7 +23,6 @@ android {
         val localProperties = Properties().apply {
             load(rootProject.file("local.properties").inputStream())
         }
-        buildConfigField("String", "GEMINI_API_KEY", "\"${localProperties.getProperty("GEMINI_API_KEY", "")}\"")
         buildConfigField("String", "REGISTER_URL", "\"${localProperties.getProperty("REGISTER_URL", "")}\"")
         buildConfigField("String", "QUERIES_URL", "\"${localProperties.getProperty("QUERIES_URL", "")}\"")
     }

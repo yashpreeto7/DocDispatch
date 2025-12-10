@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="16dp"
-                android:text="AI Bot"
+                android:text="TBA"
                 android:textSize="16sp" />
         </androidx.cardview.widget.CardView>
 

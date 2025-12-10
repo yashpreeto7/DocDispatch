@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.cardAiBot).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AiInputBottomSheet().show(getSupportFragmentManager(), "AiInputBottomSheet");
+                Toast.makeText(MainActivity.this, "TBA", Toast.LENGTH_SHORT).show();
             }
         });
 
